@@ -1,2 +1,19 @@
-My name is Ed Donner. I'm an entrepreneur, software engineer and data scientist. I'm originally from London, England, but I moved to NYC in 2000.
-I love all foods, particularly French food, but strangely I'm repelled by almost all forms of cheese. I'm not allergic, I just hate the taste! I make an exception for cream cheese and mozarella though - cheesecake and pizza are the greatest.
+Yongpeng Fu - Staff Data/AI Engineer
+
+PROFESSIONAL SUMMARY
+I am a seasoned Staff Data/AI Engineer at RBC Royal Bank, bringing extensive cross-industry experience in data engineering, artificial intelligence, and scalable system architecture. With a proven track record of leading complex engineering initiatives and delivering enterprise-grade solutions, I specialize in designing and implementing robust data pipelines, machine learning systems, and AI-powered applications.
+
+PROFESSIONAL EXPERIENCE
+- Currently serving as Staff Data/AI Engineer at RBC Royal Bank, where I architect and lead mission-critical data and AI infrastructure projects
+- Gained diverse industry expertise through roles as Data Science Intern at Cenovus Energy and Software Developer Intern at Canadian Tire Corporation, working across energy and retail sectors
+- Led multiple end-to-end engineering projects, from initial design through production deployment, demonstrating strong technical leadership and cross-functional collaboration
+
+EDUCATION
+Master of Science in Data Science and Analytics, University of Calgary
+
+TECHNICAL EXPERTISE
+- Programming Languages: Java, Python, Scala
+- Specializations: Machine Learning, Data Engineering, AI Systems, Cloud Architecture
+- Focus Areas: Large-scale data processing, MLOps, distributed systems, and AI/ML model deployment
+
+I bring a combination of technical depth, leadership experience, and practical problem-solving skills honed across multiple industries and challenging enterprise environments.
