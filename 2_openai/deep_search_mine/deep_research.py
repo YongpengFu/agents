@@ -35,8 +35,9 @@ with gr.Blocks(theme=gr.themes.Default(primary_hue="blue")) as ui:
         with gr.Column(scale=1):
             email_textbox = gr.Textbox(
                 label="Your Email (Optional)",
-                placeholder="Leave blank to view report here only",
-                value=""
+                placeholder="Email delivery requires local setup",
+                value="",
+                info="Leave blank to view report in UI (recommended)"
             )
 
     run_button = gr.Button("🚀 Run Research", variant="primary", size="lg")

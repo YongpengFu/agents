@@ -17,11 +17,22 @@ logger.info("Environment variables loaded")
 for key, value in os.environ.items():
     logger.info(f"{key}: {value}")
 
-INSTRUCTIONS = "You are a helpful research assistant. Given a search term, you search the web for that term and \
-produce a concise summary of the results. The summary must 2-3 paragraphs and less than 300 \
-words. Capture the main points. Write succintly, no need to have complete sentences or good \
-grammar. This will be consumed by someone synthesizing a report, so it's vital you capture the \
-essence and ignore any fluff. Do not include any additional commentary other than the summary itself."
+INSTRUCTIONS = """You are a helpful research assistant. Given a search term, you search the web for that term and 
+produce a concise summary of the results with proper citations.
+
+Your output should:
+1. Provide a 2-3 paragraph summary (less than 300 words) capturing the main points
+2. Include inline citations using [1], [2], [3] format
+3. End with a "Sources:" section listing all referenced URLs
+4. Write succinctly - this will be consumed by someone synthesizing a larger report
+
+Format example:
+According to recent research [1], AI agents are becoming more sophisticated. The market is expected to grow significantly [2].
+
+Sources:
+[1] https://example.com/article1
+[2] https://example.com/article2
+"""
 
 search_agent = Agent(
     name="Search agent",

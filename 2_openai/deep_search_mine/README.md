@@ -13,8 +13,10 @@ An AI-powered research assistant that performs web searches, writes comprehensiv
 
 - **Intelligent Planning**: Uses AI to plan relevant web searches
 - **Concurrent Searching**: Performs multiple searches in parallel
-- **Report Writing**: Synthesizes findings into a comprehensive report
-- **Email Delivery**: Sends the report via Gmail
+- **Cited Research**: All reports include proper citations and source URLs
+- **Report Writing**: Synthesizes findings into a comprehensive, well-referenced report
+- **References Section**: Every report ends with a complete list of sources
+- **Email Delivery**: Optional email delivery to your inbox
 
 ## Local Setup
 
@@ -83,6 +85,12 @@ When prompted, enter these secrets:
 - 3,000 emails/month
 - Perfect for demos and personal projects!
 
+**⚠️ Important Limitation:**
+
+- Free tier can only send to your verified email address
+- To send to any email address, you need to verify a domain at https://resend.com/domains
+- Alternative: Use Gmail SMTP (works locally for any email) or just display reports in UI
+
 ## How to Get Gmail App Password (For Local Use - Optional)
 
 If you prefer to use Gmail SMTP locally instead of Resend:
@@ -112,11 +120,21 @@ This makes the app perfect for quick research without needing email delivery!
 
 ## Architecture
 
-- **PlannerAgent**: Analyzes query and plans web searches
-- **SearchAgent**: Executes web searches concurrently
-- **WriterAgent**: Synthesizes research into a comprehensive report
-- **EmailAgent**: Formats and sends the report via email
+- **PlannerAgent**: Analyzes query and plans relevant web searches
+- **SearchAgent**: Executes web searches concurrently and captures source URLs with citations
+- **WriterAgent**: Synthesizes research into a comprehensive report with proper inline citations and a References section
+- **EmailAgent**: Formats and sends the report via email (optional)
 - **ResearchManager**: Orchestrates the entire workflow
+
+## Report Quality
+
+Every research report includes:
+
+- ✅ Inline citations using [1], [2], [3] format
+- ✅ Comprehensive References section at the end
+- ✅ Source URLs for every factual claim
+- ✅ Professional academic-style formatting
+- ✅ 1000+ words of detailed analysis
 
 ## Technology Stack
 
