@@ -12,9 +12,10 @@ async def run(query: str):
 
 
 with gr.Blocks() as ui:
-    gr.Markdown("# Deep Research")
+    gr.Markdown("# Deep Research Agent")
+    gr.Markdown("_Powered by OpenAI Agents & Resend Email_")
     query_textbox = gr.Textbox(label="What topic would you like to research?")
-    run_button = gr.Button("Run", variant="primary")
+    run_button = gr.Button("Run Research", variant="primary")
     report = gr.Markdown(label="Report")
     run_button.click(fn=run, inputs=query_textbox, outputs=report)
     query_textbox.submit(fn=run, inputs=query_textbox, outputs=report)
