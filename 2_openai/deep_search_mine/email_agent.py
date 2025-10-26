@@ -26,16 +26,16 @@ for key, value in os.environ.items():
 
 
 @function_tool
-def send_email(subject: str, html_body: str):
+def send_email(recipient: str, subject: str, html_body: str):
     """
     Send an email with the given subject and HTML body using Resend API.
     Falls back to SMTP if Resend is not configured.
 
     Args:
+        recipient: The email address to send to
         subject: The email subject line
         html_body: The email body content in HTML format
     """
-    recipient = "yongpengfu0011@gmail.com"
 
     # Try Resend first (works on Hugging Face Spaces)
     resend_api_key = os.getenv("RESEND_API_KEY")
@@ -86,11 +86,18 @@ def send_email(subject: str, html_body: str):
 
 
 INSTRUCTIONS = """You are an email sending agent.
-When given a report, you should:
-1. Try to send it as a well-formatted HTML email using the send_email tool
-2. If email sending fails (e.g., on restricted platforms), that's okay - the user will still see the report
 
-Always attempt to use your send_email tool, but don't worry if it fails."""
+When you receive a message with format "Send this report to: [email]\n\nReport:\n[content]":
+1. Extract the recipient email address from the message
+2. Extract the report content
+3. Create an appropriate subject line based on the report content
+4. Convert the report into well-formatted HTML
+5. Use the send_email tool with the recipient email, subject, and HTML body
+
+Important:
+- The recipient parameter should be the exact email address extracted from the input
+- Make the HTML email beautiful and well-structured
+- If email sending fails, that's okay - the user will still see the report"""
 
 email_agent = Agent(
     name="Email agent",

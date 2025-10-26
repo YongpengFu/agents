@@ -20,7 +20,7 @@ for key, value in os.environ.items():
 
 
 class ResearchManager:
-    async def run(self, query: str):
+    async def run(self, query: str, recipient_email: str = None):
         """ Run the deep research process, yielding the status updates and the final report"""
         trace_id = gen_trace_id()
         with trace("Research trace", trace_id=trace_id):
@@ -33,9 +33,15 @@ class ResearchManager:
             search_results = await self.perform_searches(search_plan)
             yield "Searches complete, writing report..."
             report = await self.write_report(query, search_results)
-            yield "Report written, sending email..."
-            await self.send_email(report)
-            yield "Email sent, research complete"
+
+            # Only send email if recipient email is provided
+            if recipient_email:
+                yield f"Report written, sending email to {recipient_email}..."
+                await self.send_email(report, recipient_email)
+                yield f"✅ Email sent to {recipient_email}, research complete!"
+            else:
+                yield "✅ Report complete! (No email sent - view report below)"
+
             yield report.markdown_report
 
     async def plan_searches(self, query: str) -> WebSearchPlan:
@@ -68,21 +74,30 @@ class ResearchManager:
         print("Finished writing report")
         return result.final_output
 
-    async def send_email(self, report: ReportData) -> ReportData:
+    async def send_email(self, report: ReportData, recipient_email: str) -> ReportData:
         """ Use the email agent to send an email with the report """
-        print("Writing email...")
-        result = await Runner.run(email_agent, report.markdown_report)
-        print("Email sent")
+        print(f"Writing email to {recipient_email}...")
+        # Pass the email as context to the agent
+        message = f"Send this report to: {recipient_email}\n\nReport:\n{report.markdown_report}"
+        result = await Runner.run(email_agent, message)
+        print(f"Email sent to {recipient_email}")
         return report
 
 
 async def main():
     query = "What are the latest trends in AI?"
+
+    # Option 1: With email (will send email)
+    recipient_email = "test@example.com"  # Replace with your email for testing
+
+    # Option 2: Without email (will only display report, no email sent)
+    # recipient_email = None
+
     research_manager = ResearchManager()
 
-    # Option 1: Iterate through all the yield statements
+    # Iterate through all the yield statements
     # This will print progress updates and the final report
-    async for status_or_report in research_manager.run(query):
+    async for status_or_report in research_manager.run(query, recipient_email):
         print(status_or_report)
         print("-" * 80)
 

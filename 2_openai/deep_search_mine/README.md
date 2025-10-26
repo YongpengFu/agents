@@ -97,10 +97,18 @@ If you prefer to use Gmail SMTP locally instead of Resend:
 
 ## Usage
 
-1. Enter your research query in the text box
-2. Click "Run" or press Enter
-3. Watch the progress updates
-4. The final report will be displayed and emailed to you
+1. Enter your research topic in the text box
+2. **Optional:** Enter your email address if you want to receive the report via email
+3. Click "🚀 Run Research"
+4. Watch the progress updates in real-time
+5. The final report will be displayed in the UI
+
+**Email Options:**
+
+- **With email:** Report is displayed AND sent to your inbox
+- **Without email:** Report is only displayed in the UI (no email sent)
+
+This makes the app perfect for quick research without needing email delivery!
 
 ## Architecture
 

@@ -8,8 +8,15 @@ import resend
 load_dotenv(override=True)
 
 
-def test_resend_email():
+def test_resend_email(recipient_email=None):
     """Test sending email via Resend API"""
+
+    if not recipient_email:
+        recipient_email = input(
+            "Enter your email address for testing: ").strip()
+        if not recipient_email or "@" not in recipient_email:
+            print("❌ Invalid email address")
+            return False
 
     resend_api_key = os.getenv("RESEND_API_KEY")
 
@@ -25,17 +32,17 @@ def test_resend_email():
 
         params = {
             "from": "onboarding@resend.dev",
-            "to": "yongpengfu0011@gmail.com",
+            "to": recipient_email,
             "subject": "Test Email from Deep Research App",
             "html": "<h1>Success!</h1><p>Your Resend email integration is working perfectly! 🎉</p>"
         }
 
-        print("Sending test email...")
+        print(f"Sending test email to {recipient_email}...")
         r = resend.Emails.send(params)
 
         print(f"✅ Email sent successfully!")
         print(f"Email ID: {r.get('id', 'N/A')}")
-        print(f"Check your inbox at yongpengfu0011@gmail.com")
+        print(f"Check your inbox at {recipient_email}")
         return True
 
     except Exception as e:
