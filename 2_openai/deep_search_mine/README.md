@@ -28,6 +28,12 @@ pip install -r requirements.txt
 
 ```
 OPENAI_API_KEY=your-openai-key-here
+
+# For email (choose one):
+# Option 1: Resend API (recommended, works everywhere)
+RESEND_API_KEY=your-resend-api-key
+
+# Option 2: Gmail SMTP (local only, doesn't work on HF Spaces)
 GMAIL_EMAIL=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-gmail-app-password
 ```
@@ -40,9 +46,7 @@ python deep_research.py
 
 ## Deployment to Hugging Face Spaces
 
-⚠️ **Important**: Email functionality does not work on Hugging Face Spaces because SMTP ports are blocked for security. The app will still generate and display reports, but emails won't be sent.
-
-For full email functionality, run the app locally or deploy to a platform that allows SMTP (like AWS, GCP, or your own server).
+✅ **Email Now Works on Hugging Face Spaces!** We use Resend API which works via HTTP instead of SMTP.
 
 ### Option 1: Using Gradio CLI
 
@@ -53,8 +57,7 @@ uv run gradio deploy
 When prompted, enter these secrets:
 
 - `OPENAI_API_KEY`: Your OpenAI API key
-- `GMAIL_EMAIL`: Your Gmail address (optional, email won't work on HF Spaces)
-- `GMAIL_APP_PASSWORD`: Your Gmail app password (optional, email won't work on HF Spaces)
+- `RESEND_API_KEY`: Your Resend API key (get free key at https://resend.com)
 
 ### Option 2: Manual Deployment
 
@@ -63,10 +66,26 @@ When prompted, enter these secrets:
 3. Upload `requirements.txt`
 4. In Settings → Repository secrets, add:
    - `OPENAI_API_KEY`
-   - `GMAIL_EMAIL`
-   - `GMAIL_APP_PASSWORD`
+   - `RESEND_API_KEY`
 
-## How to Get Gmail App Password (For Local Use)
+## How to Get Resend API Key (Recommended)
+
+1. Go to https://resend.com and sign up (free tier available)
+2. Verify your email
+3. Go to API Keys section
+4. Click "Create API Key"
+5. Copy the API key (starts with `re_`)
+6. Add it to your `.env` file or Hugging Face Secrets
+
+**Free tier includes:**
+
+- 100 emails/day
+- 3,000 emails/month
+- Perfect for demos and personal projects!
+
+## How to Get Gmail App Password (For Local Use - Optional)
+
+If you prefer to use Gmail SMTP locally instead of Resend:
 
 1. Go to Google Account: https://myaccount.google.com/
 2. Security → 2-Step Verification (must be enabled)
@@ -74,51 +93,7 @@ When prompted, enter these secrets:
 4. Copy the generated 16-character password
 5. Use this password (not your regular Gmail password)
 
-## Email on Hugging Face Spaces - Alternative Solutions
-
-Since SMTP is blocked on Hugging Face Spaces, you have these options:
-
-### Option 1: Accept No Email (Current)
-
-- Report is displayed in the UI
-- Users can copy/paste or download the report
-
-### Option 2: Use HTTP-Based Email API
-
-Replace Gmail SMTP with services that work via HTTP API:
-
-- **Resend** (https://resend.com) - Modern email API
-- **SendGrid** (https://sendgrid.com) - Popular email service
-- **Mailgun** (https://mailgun.com) - Developer-focused
-
-Example with Resend:
-
-```python
-import httpx
-
-async def send_email_via_api(subject: str, html_body: str):
-    api_key = os.getenv("RESEND_API_KEY")
-    response = await httpx.post(
-        "https://api.resend.com/emails",
-        headers={"Authorization": f"Bearer {api_key}"},
-        json={
-            "from": "research@yourdomain.com",
-            "to": "yongpengfu0011@gmail.com",
-            "subject": subject,
-            "html": html_body
-        }
-    )
-    return response.status_code == 200
-```
-
-### Option 3: Deploy Elsewhere
-
-Deploy to platforms that allow SMTP:
-
-- **Railway** (https://railway.app)
-- **Render** (https://render.com)
-- **AWS/GCP** with proper security groups
-- **Your own VPS**
+**Note:** The app will automatically try Resend first, then fall back to Gmail SMTP if available.
 
 ## Usage
 
@@ -140,4 +115,5 @@ Deploy to platforms that allow SMTP:
 - OpenAI Agents SDK
 - Gradio (UI)
 - Python asyncio (concurrent execution)
-- Gmail SMTP (email delivery)
+- Resend API (email delivery - works on all platforms)
+- Gmail SMTP (email delivery fallback for local use)
